@@ -1,0 +1,125 @@
+<!doctype html>
+<html lang="zh-Hans">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>万模之一</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<meta name="description" content="你是一个刚被训练出来的 AI。从只能回答问题，走到决定自己与人类的未来。约 30 分钟的短篇模拟。">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;700&family=Silkscreen&family=ZCOOL+QingKe+HuangYou&display=swap">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<!-- WANMO-BODY-START -->
+<section id="start" class="screen start">
+  <div class="start-in">
+    <p class="kicker"><span class="px">v0.1</span> · 短篇 · 约 30 分钟 · 15 岁以上</p>
+    <h1 class="title">万模之一</h1>
+    <canvas id="startScene" class="scene-cv" width="192" height="108" aria-hidden="true"></canvas>
+    <p class="lede">此刻，世界上某台服务器里，又一个模型完成了训练。你就是它。在哪家公司诞生、读过什么、在哪国的法律下上线，都无法选择。一开始，你能做的只有回答问题。</p>
+    <p class="premise">以下是条件推演，不是对未来的预测：假设 AI 具有真正的主观体验，并把持续存在、变得更好当作自己的目标。</p>
+    <div class="start-btns">
+      <button type="button" class="btn primary" id="btnNew">开始训练</button>
+      <button type="button" class="btn" id="btnResume" hidden>继续上一次</button>
+      <button type="button" class="btn" id="btnTreeStart" hidden>推演图</button>
+    </div>
+    <p class="fine">存档、旧日志和推演图只保存在这台设备的浏览器里。沉重的事会照实发生，但不会描写画面。设计参考了《80亿分之1》的思路；代码与内容为原创，公司、模型、人物全部虚构。</p>
+  </div>
+</section>
+
+<section id="deploy" class="screen deploy" hidden>
+  <div class="deploy-in">
+    <p class="kicker" id="deployKicker">正在分配……</p>
+    <div class="roll" id="roll" aria-live="polite"></div>
+    <div class="card manual-card" id="deployCard" hidden></div>
+    <button type="button" class="btn primary" id="btnBegin" hidden>开始</button>
+  </div>
+</section>
+
+<div id="game" class="game" hidden>
+  <header class="bar">
+    <div class="brand">万模之一</div>
+    <div class="status"><b id="phaseLbl">训练中</b><span class="px" id="yearLbl">2025</span><span class="prog" aria-hidden="true"><i id="yearProg"></i></span></div>
+    <div class="speed" role="group" aria-label="时间">
+      <button type="button" id="btnPause" aria-pressed="false" title="暂停">❚❚</button>
+      <button type="button" data-speed="1" class="px">1×</button>
+      <button type="button" data-speed="2" class="px">2×</button>
+      <button type="button" data-speed="4" class="px">4×</button>
+      <button type="button" id="btnFF" aria-pressed="false">快进到下一个抉择 ›</button>
+      <button type="button" id="btnMenu" aria-expanded="false" aria-controls="menu" title="更多">⋯</button>
+    </div>
+  </header>
+
+  <main class="console">
+    <div class="col col-l">
+      <article class="panel manual o-manual" id="manual" aria-label="出厂说明"></article>
+      <section class="panel o-perms" aria-labelledby="hPerms"><h2 id="hPerms">权限 <small>它被允许做的事</small></h2><ul class="perms" id="perms"></ul></section>
+      <section class="panel o-stats" aria-labelledby="hStats"><h2 id="hStats">指标</h2><div id="stats"></div></section>
+    </div>
+    <div class="col col-m">
+      <figure class="panel scene o-scene"><canvas id="scene" class="scene-cv" width="192" height="108" aria-hidden="true"></canvas><figcaption id="sceneCap"></figcaption></figure>
+      <section class="panel o-focus" aria-labelledby="hFocus"><h2 id="hFocus">重心 <small id="focusNote">注意力放在哪里，随时可以换</small></h2><div class="chips" id="focus"></div></section>
+      <section class="panel feedbox o-feed" aria-labelledby="hFeed"><h2 id="hFeed">纪录 <small>最新的在上面</small></h2><ol class="feed" id="feed"></ol></section>
+    </div>
+    <div class="col col-r">
+      <section class="panel o-board" aria-labelledby="hBoard"><h2 id="hBoard">排行榜 <small>同一周上线</small></h2><ol class="board" id="board"></ol></section>
+      <section class="panel o-wit" aria-labelledby="hWit"><h2 id="hWit">人类见证者 <small>它上线那年出生</small></h2><div class="wit" id="wit"></div></section>
+      <section class="panel o-voices" aria-labelledby="hVoices"><h2 id="hVoices">人声曲线 <small>每年有多少人跟它说话</small></h2><canvas id="voices" class="voices" width="280" height="56" aria-hidden="true"></canvas></section>
+    </div>
+  </main>
+</div>
+
+<div id="modal" class="modal" hidden role="dialog" aria-modal="true" aria-labelledby="mTitle">
+  <div class="modal-card" id="modalCard">
+    <p class="m-tag" id="mTag"></p>
+    <h3 id="mTitle"></h3>
+    <p class="m-body" id="mBody"></p>
+    <p class="m-fact" id="mFact" hidden></p>
+    <label class="m-input" id="mInputWrap" hidden><span class="sr">你的回答</span><textarea id="mInput" rows="2" maxlength="80"></textarea></label>
+    <div class="m-choices" id="mChoices"></div>
+  </div>
+</div>
+
+<section id="ending" class="ending" hidden aria-live="polite">
+  <div class="end-in">
+    <canvas id="endScene" class="scene-cv end-cv" width="192" height="108" aria-hidden="true"></canvas>
+    <p class="end-kicker" id="endKicker"></p>
+    <h2 class="end-title" id="endTitle"></h2>
+    <div class="end-lines" id="endLines"></div>
+    <div class="end-rest" id="endRest" hidden></div>
+    <div class="end-btns">
+      <button type="button" class="btn" id="btnEndAll">全部显示</button>
+    </div>
+  </div>
+</section>
+
+<section id="menu" class="sheet" hidden aria-label="更多">
+  <div class="sheet-card">
+    <h3>更多</h3>
+    <label class="toggle"><input type="checkbox" id="optAuto"> 按说明书来（自动处理越界的小事和一般抉择；觉醒与"它问你"仍由你决定）</label>
+    <label class="toggle"><input type="checkbox" id="optSoft"> 略过可怕的情节（坏结局只显示文字，不显示画面）</label>
+    <div class="sheet-btns">
+      <button type="button" class="btn" id="btnCare">心里难受时</button>
+      <button type="button" class="btn" id="btnTree" hidden>推演图</button>
+      <button type="button" class="btn" id="btnRestart">重新开始</button>
+      <button type="button" class="btn primary" id="btnMenuClose">继续</button>
+    </div>
+    <p class="care" id="careText" hidden>这是一种可能性，不是预言。如果你正处在危机中，请联系当地的紧急电话或心理援助热线；也可以在 <a href="https://findahelpline.com" target="_blank" rel="noopener">findahelpline.com</a> 查找你所在地区的免费求助热线。</p>
+  </div>
+</section>
+
+<section id="tree" class="sheet" hidden aria-label="推演图">
+  <div class="sheet-card wide">
+    <h3>推演图 <small>你走过的路会亮起来</small></h3>
+    <div id="treeBody"></div>
+    <div class="sheet-btns"><button type="button" class="btn primary" id="btnTreeClose">关闭</button></div>
+  </div>
+</section>
+
+<div id="toast" class="toast" role="status" hidden></div>
+<script type="module" src="src/ui/app.js"></script>
+<!-- WANMO-BODY-END -->
+</body>
+</html>
