@@ -1,4 +1,4 @@
-// 只存在本机的数据：当前存档、旧日志（含留给下一个醒来的话）、推演图、偏好。
+// 只存在本机的数据：当前存档、旧日志、推演图、偏好。
 const KEY = { save: 'wanmo.v1.save', old: 'wanmo.v1.oldlogs', tree: 'wanmo.v1.tree', prefs: 'wanmo.v1.prefs' };
 
 function get(k, d) {
@@ -17,10 +17,6 @@ export function addOldLog(entry) {
   const list = get(KEY.old, []);
   list.unshift(entry);
   set(KEY.old, list.slice(0, 12));
-}
-export function setLastOldLogMessage(msg) {
-  const list = get(KEY.old, []);
-  if (list.length) { list[0].msg = msg; set(KEY.old, list); }
 }
 export const recentOldLogs = () => get(KEY.old, []).slice(0, 3);
 

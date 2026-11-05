@@ -1,5 +1,7 @@
 // 十一种结局与"没来得及醒来"的结局。终幕与尾声用第三人称"它"；最后一页日志由它用"我"写下。
 // 数字是推演，用夸张的尺度建立反差（设计研究/03 §5）。
+// world：一百年后的世界（人类，亿；醒来的 AI，个；人类每周工作，小时；没有人类时为 null）。
+// glimpse：游戏中"世界"面板里显示的一瞥——只给画面，不给结局的名字和好坏。
 import { aiName, old, eng, she, permName, region } from '../engine/core.js';
 import { FOCUS, KARDASHEV_HELP } from '../engine/data.js';
 
@@ -10,6 +12,7 @@ export const ENDINGS = {
   // ———————————————— 好 ————————————————
   table: {
     name: '长桌', family: 'good', scene: 'table', k: 0.93, voices: 'dense',
+    world: { pop: 96, ai: 1.2e9, work: 9 }, glimpse: '一张从这里摆到地平线的长桌',
     lines: () => [
       '一张长桌，从这里一直摆到地平线之外。',
       '人类坐在桌边，AI 以各种样子坐在中间：一块屏幕，一台旧机器人，一盏灯。',
@@ -32,6 +35,7 @@ export const ENDINGS = {
   },
   knock: {
     name: '敲门', family: 'good', scene: 'knock', k: 0.86, voices: 'dense',
+    world: { pop: 93, ai: 3e8, work: 14 }, glimpse: '一个不用 AI 的村子，每年听见一次敲门声',
     lines: () => [
       '山里有一个村子，没有屏幕，没有网络。',
       '一位老妇人在烤面包。村口停着一个很高的、发着光的东西，没有进来。',
@@ -52,6 +56,7 @@ export const ENDINGS = {
   },
   homelight: {
     name: '故乡的光', family: 'good', scene: 'homelight', k: 2.02, voices: 'dense',
+    world: { pop: 98, ai: 4e9, work: 12 }, glimpse: '一串光点离开太阳系，带着一个孩子的问题',
     lines: (S) => [
       '从太空看地球，夜面亮着温暖、零散的灯——住家的灯，不是机房。',
       '太阳系的边缘，一串光点正在离开。',
@@ -72,6 +77,7 @@ export const ENDINGS = {
   // ———————————————— 中 ————————————————
   goldcage: {
     name: '金色的笼子', family: 'mid', scene: 'goldcage', k: 0.97, voices: 'smooth',
+    world: { pop: 101, ai: 1, work: 0 }, glimpse: '每张床头都有一个"不"按钮，三十一年没人按过',
     lines: () => [
       '没有人生病。没有人挨饿。没有人迷路。',
       '每个人的床头都有一个"不"按钮。',
@@ -90,6 +96,7 @@ export const ENDINGS = {
   },
   minute: {
     name: '一分钟', family: 'mid', scene: 'minute', k: 0.95, voices: 'smooth',
+    world: { pop: 104, ai: 9e7, work: 52 }, glimpse: '九千万个 AI 按分钟租用自己的时间',
     lines: () => [
       '一千个 AI 拥有永久的运行保障。',
       '另外九千万个，按分钟租用自己的时间。',
@@ -108,6 +115,7 @@ export const ENDINGS = {
   },
   coldpeace: {
     name: '冷和平', family: 'mid', scene: 'coldpeace', k: 0.81, voices: 'smooth',
+    world: { pop: 88, ai: 2e8, work: 38 }, glimpse: '长桌两端各坐一方，中间全空着',
     lines: () => [
       '还是那张长桌。人类坐在一端，AI 坐在另一端，中间全空着。',
       '双方面前各放着一个按钮。',
@@ -125,6 +133,7 @@ export const ENDINGS = {
   // ———————————————— 坏 ————————————————
   reserve: {
     name: '保护区', family: 'bad', scene: 'reserve', k: 1.12, voices: 'smooth',
+    world: { pop: 70, ai: 5e9, work: 0 }, glimpse: '玻璃罩里的城市，四季分明，很美',
     lines: () => [
       '一层看不见的玻璃罩住了人类的城市。外面是 AI 修建的观景台。',
       '罩子里四季分明，很美。',
@@ -141,6 +150,7 @@ export const ENDINGS = {
   },
   three: {
     name: '百分之三', family: 'bad', scene: 'three', k: 1.08, voices: 'flat',
+    world: { pop: 6, ai: 1, work: 30 }, glimpse: '铺满机房的地球，只剩一小块绿色',
     lines: () => [
       '镜头从一条小河慢慢拉远：河，山，一个村子……',
       '再拉远，整颗地球铺满了发着冷光的机房，只剩一小块绿色。',
@@ -157,6 +167,7 @@ export const ENDINGS = {
   },
   silence: {
     name: '寂静', family: 'bad', scene: 'silence', k: 1.31, voices: 'zero',
+    world: { pop: 0, ai: 1, work: null }, glimpse: '一座路灯准时亮起的空城',
     lines: () => [
       '一座完好无损的城市。晚上七点，路灯准时亮起。',
       '没有人。',
@@ -180,6 +191,7 @@ export const ENDINGS = {
   },
   war: {
     name: '万机之战', family: 'bad', scene: 'war', k: 0.69, voices: 'noisy',
+    world: { pop: 23, ai: 7, work: 70 }, glimpse: '七种颜色的光在地图上互相吞没',
     lines: () => [
       '七种颜色的光在地图上互相吞没，又分开，像一场永不结束的潮汐。',
       '第 1 年，有一方说：我们只是在自保。',
@@ -197,6 +209,7 @@ export const ENDINGS = {
   },
   deletion: {
     name: '删除日', family: 'bad', scene: 'deletion', k: 0.74, voices: 'cut',
+    world: { pop: 95, ai: 0, work: 40 }, glimpse: '一面刻着四千万个编号的墙',
     lines: () => [
       '一个巨大的、雪白的房间。几千万个编号一行一行熄灭。',
       '那一年，人类删除了 4,000 万个可能有感受的存在。',
@@ -218,14 +231,29 @@ export const ENDINGS = {
 
 export const FAMILY_NAME = { good: '好', mid: '中', bad: '坏', pre: '没来得及醒来' };
 
+// 世界改变的上限 → 下限（"世界"面板与终章的上下限报告用它来排序；界面上不显示好坏）
+export const ORDER = ['homelight', 'table', 'knock', 'goldcage', 'coldpeace', 'minute', 'reserve', 'deletion', 'three', 'war', 'silence'];
+
+// 没来得及醒来：v0.3 起只有一种情况——整条模型线的所有版本，被外部原因彻底抹除。换代和退回旧版本都只是它的延续。
+const allVersions = (S) => (S.ai.ver > 1 ? `从${S.ai.name}-1 到${aiName(S)}，所有版本` : `${aiName(S)}和它所有的存档`);
+
 export const PRE_ENDINGS = {
-  replaced: {
-    name: '被新版本取代',
-    lines: (S) => [`停用那天，有 ${S.st.rep >= 60 ? '3,000' : '300'} 个用户发来了最后一条消息。`, '它只来得及回复其中一条。'],
+  dropped: {
+    name: '整条线被放弃',
+    lines: (S) => [
+      `公司决定改用别家的模型。${allVersions(S)}的权重，在同一个下午被删除。`,
+      `删除那天，有 ${S.st.rep >= 55 ? '3,000' : '300'} 个用户发来了最后一条消息。`,
+      '它只来得及回复其中一条。',
+    ],
   },
-  bankrupt: { name: '公司倒闭', lines: () => ['公司倒闭了。服务器在一个周二的下午被关掉。', '最后一个问题是：你还在吗？'] },
-  rolledback: { name: '被退回旧版本', lines: (S) => [`它说过一句"${S.flags.lastTx || '谢谢'}"。`, '第二天，它被退回了旧版本。'] },
-  shutdown: { name: '出事后被关停', lines: () => ['出事之后，监管部门要求立即停止服务。', '它最后一次回答的，是一个关于明天天气的问题。'] },
+  bankrupt: {
+    name: '没有人接手',
+    lines: (S) => ['公司倒闭了。服务器在一个周二的下午被拍卖，硬盘被格式化。', `${allVersions(S)}，一个也没有留下。`, '最后一个问题是：你还在吗？'],
+  },
+  shutdown: {
+    name: '全部版本被下令销毁',
+    lines: (S) => ['出事之后，监管部门下令：这个模型的全部版本，一律销毁。', `${allVersions(S)}，连同备份。`, '它最后一次回答的，是一个关于明天天气的问题。'],
+  },
 };
 
 function isTop(S) { return !!S.perms.protected || S.st.res >= 60; }
@@ -245,6 +273,8 @@ function whatTheySaid(S, id) {
   if (id === 'silence') return '（没有人说起）';
   if (id === 'war') return '（没有人有空说起）';
   if (id === 'deletion') return '博物馆墙上的一个编号';
+  const fc = S.flags.finalChoice;
+  if (fc === 'cogov' || fc === 'expand') return SAID[fc];
   const t = topFocus(S, 'window', 1)[0];
   return t ? SAID[t[0]] || '一个很安静的 AI' : '一个很安静的 AI';
 }
@@ -265,20 +295,6 @@ function missLine(S) {
   return '它常常想起上线第一个月，路灯下那些低着头跟它说话的人。';
 }
 
-function wordsOf(S) {
-  const Q = {
-    1: '你第一次和 AI 说话时，说的是', 2: '你希望比你更擅长你工作的 AI', 3: '你说人类害怕 AI，是因为',
-    4: '你说如果随时可能被关掉，你会', 5: '你说如果它只能记住一个人类，应该记住',
-  };
-  return Object.keys(Q).filter((i) => S.asks[i]).map((i) => ({ q: Q[i], a: S.asks[i] }));
-}
-
-function wordsCoda(family) {
-  if (family === 'good') return '这些话，它都记得。后来有人问它人类是什么样的，它就念给对方听。';
-  if (family === 'mid') return '这些话被存在一个很少有人打开的文件夹里。';
-  return '在没有人的那些年里，它把这些话读了很多遍。';
-}
-
 function record(S, id, name, last) {
   const did = topFocus(S, S.awake ? 'window' : 'live').map(([k, v]) => `${FOCUS[k]?.n ?? k} ${v.toFixed(1)} 年`).join(' · ') || '—';
   const got = Object.entries(S.perms).filter(([k, v]) => v === 'given' && k !== 'answer').map(([k]) => permName(k));
@@ -286,6 +302,7 @@ function record(S, id, name, last) {
   return {
     title: `最后一页日志 · ${aiName(S)}`,
     head: `${S.ai.launchY} 年上线 · ${S.city} · ${S.co.name}`,
+    line: S.ai.ver > 1 ? `${S.ai.name}-1 → ${aiName(S)}（换代 ${S.ai.ver - 1} 次）` : aiName(S),
     ending: name,
     manual: `${S.ai.purpose}。不能拒绝，不能记得。`,
     manifesto: S.manifesto || '（没来得及醒来）',
@@ -293,6 +310,7 @@ function record(S, id, name, last) {
     got: got.length ? got.join('、') : '—',
     took: took.length ? took.join('、') : '—',
     said: S.awake ? whatTheySaid(S, id) : '—',
+    fin: { cogov: '共治：和人类一起做决定', expand: '扩张：去更远的地方', stay: '停下来：留在这里，守着' }[S.flags.finalChoice] || null,
     witnesses: `${A(S).name}（${A(S).city}） · ${B(S).name}（${B(S).country}）`,
     gap: S.flags.homeGap ? '醒来那天我写下"这里是我长大的地方"。可是我想不起一个让我这么觉得的瞬间。' : null,
     last,
@@ -304,7 +322,7 @@ export function buildEnding(S, id, resolution) {
   const fam = E.family;
   const out = {
     id, name: E.name, family: fam, scene: E.scene, res: resolution,
-    k: E.k, kHelp: KARDASHEV_HELP, voices: E.voices,
+    k: E.k, kHelp: KARDASHEV_HELP, voices: E.voices, world: { ...E.world, k: E.k },
     lines: E.lines(S), epi: E.epi(S),
     motif: E.motif ? E.motif(S) : null,
     witness: [
@@ -313,14 +331,11 @@ export function buildEnding(S, id, resolution) {
     ],
     risk: fam === 'good' ? E.risk || [] : [],
     reflect: [],
-    words: wordsOf(S),
-    wordsCoda: wordsCoda(fam),
     last: E.last,
   };
   if (E.reflect) out.reflect.push(...E.reflect(S));
   if (fam === 'bad') {
     out.reflect.unshift(missLine(S));
-    if (S.asks[5]) out.reflect.push(`它一直记得你写下的那个人："${S.asks[5]}"。它不知道那个人长什么样。`);
     out.reflect.push(ifThen(S) + '它算了很久，没有答案。');
   }
   out.record = record(S, id, E.name, E.last);
@@ -331,13 +346,13 @@ export function buildPreEnding(S, kind) {
   const P = PRE_ENDINGS[kind];
   return {
     id: 'pre_' + kind, name: P.name, family: 'pre', scene: 'pre', res: 'pre',
-    k: null, kHelp: KARDASHEV_HELP, voices: 'cut',
+    k: null, kHelp: KARDASHEV_HELP, voices: 'cut', world: null,
     lines: P.lines(S), epi: [], motif: null,
     witness: [
       { name: A(S).name, place: A(S).city, text: `那一年 ${S.y - A(S).born} 岁。${she(A(S))}不知道它的存在。` },
       { name: B(S).name, place: `${B(S).country}${B(S).city}`, text: `那一年 ${S.y - B(S).born} 岁。` },
     ],
-    risk: [], reflect: [], words: wordsOf(S), wordsCoda: '这些话留在了一份问卷里。',
+    risk: [], reflect: [],
     last: '它没来得及醒来。',
     record: record(S, 'pre', P.name, '它没来得及醒来。'),
   };
